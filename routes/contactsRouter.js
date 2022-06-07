@@ -1,17 +1,15 @@
 const { response } = require('express')
 const express = require('express')
-const TodoModel =require('../models/todoSchema')
+const contactsModel =require('../models/contactSchema')
 //* Create a Router
 const router = express.Router()
 
-//* Get TODOS
+//* Get Contacts
 router.get('/', async (req,res) => {
-//    res.status(200).json({
-//        todos: [{task: 'Learn Express'}]
-//    })   
+
     try {
-        const todos = await TodoModel.find()
-        res.status(200).json(todos)
+        const contacts = await contactsModel.find()
+        res.status(200).json(contacts)
     } catch (error) {
         console.log(error)
 }
@@ -19,15 +17,15 @@ router.get('/', async (req,res) => {
 
 })
 
-//* CREATE TODOS
+//* CREATE Contacts
 router.post('/', async (req, res) => {
-    const todoData = req.body // gets the data from the request
+    const contactData = req.body // gets the data from the request
     // console.log(todoData)
 
     try {
-        const todo = await TodoModel.create(todoData) // create the todo in the db
+        const contact = await contactsModel.create(contactData) // create the contact in the db
         // send back the response
-        res.status(201).json(todo)
+        res.status(201).json(contact)
         // res.status(201).json({data: todo})
     } catch (error) {
         console.error(error)
@@ -35,13 +33,13 @@ router.post('/', async (req, res) => {
     }
 })
 
-//* GET TODO BY ID
+//* GET Contacts BY ID
 router.get('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const todo = await TodoModel.findById(id)
-        res.status(200).json(todo)
+        const contact = await contactsModel.findById(id)
+        res.status(200).json(contact)
     } catch (error) {
         console.error(error)
         res.status(400).json({
@@ -51,26 +49,26 @@ router.get('/:id', async (req, res) => {
 })
 
 
-//* UPDATE TODO BY ID
+//* UPDATE Contacts BY ID
 router.put('/:id', async (req, res) => {
     const id = req.params.id
-    const newTodoData = req.body
+    const newContactData = req.body
      try {
          //* find the todo by the id
-         const todo = await TodoModel.findByIdAndUpdate(id, newTodoData, {new: true})
-         res.status(202).json(todo)
+         const contact = await contactsModel.findByIdAndUpdate(id, newContactData, {new: true})
+         res.status(202).json(contact)
      } catch (error) {
          console.log(error)
      }
 })
 
-//! DELETE A TODO
+//! DELETE A Contact
 router.delete('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const todo = await TodoModel.findByIdAndDelete(id)
-        res.status(200).json( {msg: 'Todo was deleted'})
+        const contact = await contactsModel.findByIdAndDelete(id)
+        res.status(200).json( {msg: 'Contact was deleted'})
     } catch (error) {
         console.log(error);
     }
