@@ -3,13 +3,16 @@ require('dotenv').config() // init dotenv
 
 const mongoConfig =require('./config/mongoConfig')
 const contactsRouter = require('./routes/contactsRouter')
+const usersRouter = require('./routes/usersRouter')
 
 const app = express()
 const PORT = 5000
 
 app.use(express.json()) //parse into json file read from req.body data coming in
 // * Routers
+
 app.use('/contacts', contactsRouter)  // endpoint todos to todoRouter
+app.use('/users', usersRouter)
 
 //* Root route for the APP
 app.get('/', (req, res) => {

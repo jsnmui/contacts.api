@@ -1,45 +1,41 @@
-
 const express = require('express')
-const contactsModel =require('../models/contactSchema')
-//* Create a Router
+const UserModel = require('../models/usersSchema')
+
+// * Create a Router
 const router = express.Router()
 
-//* Get Contacts
 router.get('/', async (req,res) => {
 
     try {
-        const contacts = await contactsModel.find()
-        res.status(200).json(contacts)
+        const user = await UserModel.find()
+        res.status(200).json(user)
     } catch (error) {
         console.log(error)
 }
 
 
 })
-
-//* CREATE Contacts
+//* Create a new User
 router.post('/', async (req, res) => {
-    const contactData = req.body // gets the data from the request
-    // console.log(todoData)
+    const userData = req.body
 
     try {
-        const contact = await contactsModel.create(contactData) // create the contact in the db
-        // send back the response
-        res.status(201).json(contact)
-        // res.status(201).json({data: todo})
+        const user = await UserModel.create(userData)
+        res.status(201).json(user)
     } catch (error) {
-        console.error(error)
+        console.log(error)
         res.status(400).json('Bad request!!!!!')
     }
 })
+
 
 //* GET Contacts BY ID
 router.get('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const contact = await contactsModel.findById(id)
-        res.status(200).json(contact)
+        const user = await UserModel.findById(id)
+        res.status(200).json(user)
     } catch (error) {
         console.error(error)
         res.status(400).json({
@@ -52,11 +48,11 @@ router.get('/:id', async (req, res) => {
 //* UPDATE Contacts BY ID
 router.put('/:id', async (req, res) => {
     const id = req.params.id
-    const newContactData = req.body
+    const newUserData = req.body
      try {
          //* find the todo by the id
-         const contact = await contactsModel.findByIdAndUpdate(id, newContactData, {new: true})
-         res.status(202).json(contact)
+         const user = await UserModel.findByIdAndUpdate(id, newUserData, {new: true})
+         res.status(202).json(user)
      } catch (error) {
          console.log(error)
      }
@@ -67,8 +63,8 @@ router.delete('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const contact = await contactsModel.findByIdAndDelete(id)
-        res.status(200).json( {msg: 'Contact was deleted'})
+        const  user = await UserModel.findByIdAndDelete(id)
+        res.status(200).json('User was deleted')
     } catch (error) {
         console.log(error);
     }
