@@ -22,7 +22,8 @@ router.post('/', [
     check('username',"Username is required from Middleware!").notEmpty(),
     check("email", "Please use a valid email! from middleware").isEmail(),
     check("password","Please enter a password").notEmpty(),
-    check("password","Please enter a password with six or more characters").isLength({min:6})   
+    check("password","Please enter a password with six or more characters").isLength({min:6}),
+    check("password","Please enter a stronger password").isStrongPassword({ minLength: 6, minSymbols: 0}  )
 ], async (req, res) => {
     const userData = req.body
    
