@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const mongoConfig =require('./config/mongoConfig')
 const contactsRouter = require('./routes/contactsRouter')
 const usersRouter = require('./routes/usersRouter')
+const authRouter = require('./routes/authRouter')
 
 const app = express()
 const PORT = 5000
@@ -17,6 +18,7 @@ app.use(helmet())
 
 app.use('/contacts', contactsRouter)  // endpoint todos to todoRouter
 app.use('/users', usersRouter)
+app.use('/auth', authRouter)
 
 //* Root route for the APP
 app.get('/', (req, res) => {
